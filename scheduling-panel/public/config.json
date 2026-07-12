@@ -1,0 +1,9 @@
+{
+  "host": "[REDACTED-IP]",
+  "ipId": "0x03",
+  "roomId": "",
+  "schedule": {
+    "source": "mock",
+    "backendUrl": ""
+  }
+}
