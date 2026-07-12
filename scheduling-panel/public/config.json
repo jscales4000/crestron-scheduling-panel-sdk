@@ -1,0 +1,9 @@
+{
+  "host": "192.168.2.155",
+  "ipId": "0x03",
+  "roomId": "",
+  "schedule": {
+    "source": "mock",
+    "backendUrl": ""
+  }
+}
