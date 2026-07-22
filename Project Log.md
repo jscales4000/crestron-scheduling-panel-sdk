@@ -70,6 +70,20 @@ cut to 1.2 MB of real reference material first — fonts, images and `bower_comp
 retrieval noise). Decoder doc `1e4135fc`. Tasks `0f3fd35f`, `4e1c46a0`, `53001291`, `2187c27e`
 → **review**; `b3f44c1b` → **todo (User)** with the full Task 0 findings.
 
+### Handoff — session ended here
+Handoff doc: FRED `65ac7e19-2849-47e5-a27e-3cd1adae1154` (machine Boogie, Opus 4.8).
+
+**Resume point:** task `b3f44c1b`. The package is **built and ready** —
+`scheduling-ootb/app/dist/mcccd_1.5.0.zip` (4,392,278 bytes, SHA256 `3fcf2c6e…`), rebuilt after
+every fix and its contents verified. The only unknown left is **how to load it**. Next action is
+not code — try **Crestron Toolbox first** (a proven workflow on this site), then Web Config →
+Actions. Load the **outer zip**, do not unzip it.
+
+**Do not** chase `edc132ad` (VLAN egress) unless the `.vtz` route proves dead — the entire point
+of this route is that it needs no egress.
+
+Branch `feat/ootb-holding-panel`, 15 commits, **not pushed**. Working tree clean.
+
 ---
 
 ## v1.2.0 — 2026-07-16 — Found the real scheduling panel; BLOCKED on no-internet VLAN
