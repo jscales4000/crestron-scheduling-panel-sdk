@@ -947,11 +947,15 @@ Edit `scheduling-ootb/app/src/appInfo.json`:
 {
     "main": "index.html",
     "title": "MCCCD District Office scheduling panel",
-    "version": "1.4.7.100"
+    "version": "1.5.0"
 }
 ```
 
-> The version feeds `fullAppName` and lands in `~info.ini`, so the panel sees a build distinct from stock `1.4.7.001`.
+> **Use a 3-segment version.** `Gruntfile.js`'s `findAppVersion()` truncates any
+> version with more than 3 segments to its first three — so stock `1.4.7.001`
+> builds as `1.4.7`, and a 4-segment `1.4.7.100` would *also* collapse to
+> `1.4.7`, colliding with stock and defeating this step. `1.5.0` passes through
+> untouched. Verified by reading `findAppVersion()` in the vendored Gruntfile.
 
 - [ ] **Step 2: Build the deliverable**
 
@@ -960,25 +964,25 @@ cd "/c/Users/scale/CascadeProjects/Crestron Scheduling Panels/Alpha one Schedule
 grunt --app=mcccd --dist
 ```
 
-Expected: `Done, without errors.`, producing `dist/mcccd_1.4.7.100.zip` (also copied to `scheduling-ootb/build/`).
+Expected: `Done, without errors.`, producing `dist/mcccd_1.5.0.zip` (also copied to `scheduling-ootb/build/`).
 
 - [ ] **Step 3: Verify the package one final time**
 
 ```bash
 python -c "
 import zipfile, glob
-p = glob.glob('dist/mcccd_1.4.7.100.zip')[0]
+p = glob.glob('dist/mcccd_1.5.0.zip')[0]
 z = zipfile.ZipFile(p)
 print(sorted(z.namelist()))
 print(z.read('~info.ini').decode())
 "
 ```
 
-Expected: exactly `['mcccd_1.4.7.100.vtz', '~info.ini']`, with `Filename=mcccd_1.4.7.100.vtz` and `Version=1.4.7.100`.
+Expected: exactly `['mcccd_1.5.0.vtz', '~info.ini']`, with `Filename=mcccd_1.5.0.vtz` and `Version=1.5.0`.
 
 - [ ] **Step 4: Deploy to `[REDACTED-IP]`**
 
-Same mechanism proven in Task 0: FTP `mcccd_1.4.7.100.zip` to the panel's `firmware` directory, then run `OOTBPROJECTLOAD`.
+Same mechanism proven in Task 0: FTP `mcccd_1.5.0.zip` to the panel's `firmware` directory, then run `OOTBPROJECTLOAD`.
 
 - [ ] **Step 5: Verify on glass — the real acceptance test**
 
@@ -1007,7 +1011,7 @@ Append a `v1.3.0` entry to `Project Log.md` recording: the OOTB route decision a
 ```bash
 cd "/c/Users/scale/CascadeProjects/Crestron Scheduling Panels/Alpha one Schedule panels"
 git add scheduling-ootb "Project Log.md"
-git commit -m "feat(ootb): package MCCCD holding panel v1.4.7.100 and document build/deploy"
+git commit -m "feat(ootb): package MCCCD holding panel v1.5.0 and document build/deploy"
 ```
 
 ---
