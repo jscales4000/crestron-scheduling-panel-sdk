@@ -362,7 +362,7 @@ then the function signature:
 Create `scheduling-ootb/app/src/views/partials/holding.html`:
 
 ```html
-<div class="holding" data-ng-controller="HoldingCtrl">
+<div class="holding bg__theme-color-2" data-ng-controller="HoldingCtrl">
     <div class="holding__greeting color__theme-color-5">{{ greeting }}</div>
 </div>
 ```
@@ -523,7 +523,7 @@ Replace `scheduling-ootb/app/src/js/controllers/holding.js` entirely:
 Replace `scheduling-ootb/app/src/views/partials/holding.html` entirely:
 
 ```html
-<div class="holding" data-ng-controller="HoldingCtrl">
+<div class="holding bg__theme-color-2" data-ng-controller="HoldingCtrl">
     <div class="holding__drift">
 
         <div class="holding__logo">
@@ -632,8 +632,11 @@ In `scheduling-ootb/app/src/js/controllers/holding.js`, add this helper inside `
             resolveLogo = function () {
                 var state = $rootScope.Helium.state || {},
                     stacked = state.layout === 'vertical' || state.layout === 'portrait',
-                    // White logo on the dark theme; black on light and impair.
-                    white = state.theme === 'dark-theme';
+                    // White logo on every DARK theme. impair-theme is dark
+                    // (bg $theme-color-2 = black, fg $theme-color-9 = white),
+                    // same as dark-theme - only light-theme needs black.
+                    // Also fails safe: unknown theme -> white on dark bg.
+                    white = state.theme !== 'light-theme';
 
                 return 'assets/images/brand/logo-' +
                     (stacked ? 'stacked' : 'horizontal') + '-' +
@@ -738,7 +741,9 @@ Create `scheduling-ootb/app/src/scss/partials/holding.scss`:
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    padding: 4%;
+    // vh/vw, not %: percentage padding resolves against WIDTH on BOTH axes
+    // while translateY() resolves against HEIGHT, which clipped in portrait.
+    padding: 5vh 5vw;
 
     will-change: transform;
     animation: holding-drift 240s ease-in-out infinite;

@@ -160,10 +160,24 @@ so logo choice is a template binding — `f(layout, theme)` — with no new serv
 
 | Layout | Theme | Asset |
 |---|---|---|
-| `horizontal` | `dark-theme` | `District_Office/Horizontal/White/Logo_WHITE_MCCCD_Horizontal.png` |
-| `horizontal` | `light-theme` / `impair-theme` | `District_Office/Horizontal/Black/Logo_BLACK_MCCCD_Horizontal.png` |
-| `vertical` / `portrait` | `dark-theme` | `District_Office/Vertical/White/Logo_WHITE_MCCCD_Stacked.png` |
-| `vertical` / `portrait` | `light-theme` / `impair-theme` | `District_Office/Vertical/Black/Logo_BLACK_MCCCD_Stacked.png` |
+| `horizontal` | `dark-theme` / `impair-theme` | `District_Office/Horizontal/White/Logo_WHITE_MCCCD_Horizontal.png` |
+| `horizontal` | `light-theme` | `District_Office/Horizontal/Black/Logo_BLACK_MCCCD_Horizontal.png` |
+| `vertical` / `portrait` | `dark-theme` / `impair-theme` | `District_Office/Vertical/White/Logo_WHITE_MCCCD_Stacked.png` |
+| `vertical` / `portrait` | `light-theme` | `District_Office/Vertical/Black/Logo_BLACK_MCCCD_Stacked.png` |
+
+> **`impair-theme` is a DARK theme, not a light one.** Corrected 2026-07-21 after
+> the logo rendered black-on-black during implementation. Verified in the SDK's
+> Sass: `impair-theme.scss` sets `$theme-color-2` (background) to `rgb(0,0,0)`
+> and `$theme-color-9` (foreground) to `rgb(255,255,255)` — identical to
+> `dark-theme`. Only `light-theme` needs the black lockup, so the implemented
+> condition is `white = theme !== 'light-theme'`, which also fails safe for an
+> unknown theme value.
+
+**The screen must also carry a background.** The root element uses the
+`bg__theme-color-2` utility class. Without it the app paints no page background
+at all, and since `ThemeService` **defaults to `dark-theme`**, a freshly
+provisioned panel renders white-on-white — an entirely blank screen. Found and
+fixed during Task 5.
 
 Source assets: `Logos/MCCCD/maricopa-logos.zip`. The loose
 `Logos/MCCCD/logo-{black,rgb,white}-mcc.png` files (1030×200) are the horizontal
