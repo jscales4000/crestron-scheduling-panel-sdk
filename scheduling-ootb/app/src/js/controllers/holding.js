@@ -34,8 +34,11 @@
             resolveLogo = function () {
                 var state = $rootScope.Helium.state || {},
                     stacked = state.layout === 'vertical' || state.layout === 'portrait',
-                    // White logo on the dark theme; black on light and impair.
-                    white = state.theme === 'dark-theme';
+                    // White logo on every dark theme. impair-theme is a DARK
+                    // theme (background $theme-color-2 = black, foreground
+                    // $theme-color-9 = white), same as dark-theme - only
+                    // light-theme needs the black lockup.
+                    white = state.theme !== 'light-theme';
 
                 return 'assets/images/brand/logo-' +
                     (stacked ? 'stacked' : 'horizontal') + '-' +
