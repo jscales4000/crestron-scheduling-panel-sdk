@@ -14,9 +14,9 @@
         </div>
 
         <div class="holding__footer">
-            <div class="holding__room color__theme-color-4">{{ roomName }}</div>
-            <div class="holding__clock color__theme-color-5">{{ now | date:timeFormat }}</div>
-            <div class="holding__date color__theme-color-4">{{ now | date:dateFormat }}</div>
+            <div class="holding__room color__theme-color-4">{{ Helium.values.roomName }}</div>
+            <div class="holding__clock color__theme-color-5">{{ now | date:timeFmt() }}</div>
+            <div class="holding__date color__theme-color-4">{{ now | date:dateFmt() }}</div>
         </div>
 
     </div>

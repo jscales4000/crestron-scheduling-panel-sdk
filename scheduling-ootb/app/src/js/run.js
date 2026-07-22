@@ -22,17 +22,21 @@
     '$document',
     'ModalService',
     'ThemeService',
-    'LayoutService'
+    'LayoutService',
+    'HoldingMode'
   ];
 
-  function runSources($rootScope, AppStateService, $location, $document, ModalService, ThemeService, LayoutService) {
+  function runSources($rootScope, AppStateService, $location, $document, ModalService, ThemeService, LayoutService, HoldingMode) {
     var flagStart = false;
 
     AppStateService.listenForActions();
     AppStateService.createMethods();
 
-    // Load splash screen on startup
-    $location.path('page/splash');
+    // In holding mode go straight to the holding screen. The stock splash waits
+    // for BOTH config and providerStatus before anything advances it, so a panel
+    // with no calendar provider configured would otherwise sit on the Crestron
+    // logo forever - precisely the case this screen exists to cover.
+    $location.path(HoldingMode.enabled ? '/page/' + HoldingMode.page : 'page/splash');
 
     // Configure UI
     ThemeService.loadTheme();
