@@ -31,6 +31,17 @@
                 return HoldingMode.copy[lang] || HoldingMode.copy.en;
             },
 
+            resolveLogo = function () {
+                var state = $rootScope.Helium.state || {},
+                    stacked = state.layout === 'vertical' || state.layout === 'portrait',
+                    // White logo on the dark theme; black on light and impair.
+                    white = state.theme === 'dark-theme';
+
+                return 'assets/images/brand/logo-' +
+                    (stacked ? 'stacked' : 'horizontal') + '-' +
+                    (white ? 'white' : 'black') + '.png';
+            },
+
             tick = function () {
                 $scope.now = new Date();
             };
@@ -42,6 +53,7 @@
         $scope.phraseIndex = 0;
         $scope.roomName = $rootScope.Helium.values ? $rootScope.Helium.values.roomName : '';
         $scope.isImpair = $rootScope.Helium.state.theme === 'impair-theme';
+        $scope.logoSrc = resolveLogo();
 
         // Date/time formats are normalised by SettingsService from the panel's
         // own 12/24h and date-order configuration.
