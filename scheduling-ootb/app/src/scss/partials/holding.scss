@@ -25,7 +25,10 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    padding: 4%;
+    // vh/vw, not %, because percentage padding resolves against WIDTH on BOTH
+    // axes while translateY() resolves against HEIGHT. In portrait that made the
+    // vertical buffer smaller than the drift reach and clipped content.
+    padding: 5vh 5vw;
 
     will-change: transform;
     animation: holding-drift 240s ease-in-out infinite;
