@@ -12,11 +12,13 @@
 		.module('helium')
 		.config(routeConfig);
 
-	routeConfig.$inject = ['$routeProvider'];
+	routeConfig.$inject = ['$routeProvider', 'HoldingMode'];
 
-	function routeConfig($routeProvider) {
+	function routeConfig($routeProvider, HoldingMode) {
 		var url = null,
-			defaultURL = 'views/partials/room.html';
+			defaultURL = HoldingMode.enabled
+				? 'views/partials/' + HoldingMode.page + '.html'
+				: 'views/partials/room.html';
 
 		$routeProvider
 			.when('/page/:page', {

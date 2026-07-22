@@ -27,6 +27,7 @@
     'ThemeService',
     'BackgroundService',
     'AppClockService',
+    'HoldingMode',
   ];
 
   function AppStateService(
@@ -44,7 +45,8 @@
     DatetimeFactory,
     ThemeService,
     BackgroundService,
-    AppClockService)
+    AppClockService,
+    HoldingMode)
   {
     var me = this;
     var timeoutShowScreenSaver;
@@ -264,7 +266,15 @@
 
     this.createMethods = function () {
       $rootScope.Helium.methods.openPage = function (page) {
-        if (readyStart) $location.path('/page/' + page);
+        var target = page;
+
+        // Holding mode: funnel the scheduling screens to the holding page.
+        // Single chokepoint - 'room' is otherwise requested from four places.
+        if (HoldingMode.enabled && HoldingMode.interceptedPages.indexOf(page) !== -1) {
+          target = HoldingMode.page;
+        }
+
+        if (readyStart) $location.path('/page/' + target);
       };
 
       var working = false;
