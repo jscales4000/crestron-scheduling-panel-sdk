@@ -125,6 +125,12 @@ switch for the whole holding-screen behavior; with it `false` the app is the
 stock, unmodified scheduling UI. This was verified working during earlier
 implementation work on this feature.
 
+**Do not delete `holdingMode.js`.** Both `src/js/services/appState.js` and
+`src/js/configs/route.js` list `'HoldingMode'` in their `$inject` arrays, so
+removing the file causes an unknown-provider error at Angular bootstrap —
+which on this device means a blank white screen on a wall. Flipping `enabled`
+to `false` is the only supported way to turn holding mode off.
+
 ## Changing the holding-screen copy
 
 Edit `HoldingMode.copy` in the same file,

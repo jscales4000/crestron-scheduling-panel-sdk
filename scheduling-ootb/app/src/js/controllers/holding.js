@@ -80,8 +80,15 @@
             return r.dateFormat || 'fullDate';
         };
 
-        // The holding screen IS the permanent view - the stock screensaver
-        // would cover it. Burn-in is handled by CSS motion instead.
+        // NOTE: this call alone does NOT keep the stock screensaver away - it
+        // gets re-armed by the global touchend handler in run.js and again on
+        // every doneInit in services/appState.js. It only suppresses the
+        // first timer. What actually blocks the screensaver is 'screensaver'
+        // being listed in HoldingMode.interceptedPages, which redirects
+        // openPage('screensaver') back to the current path (a no-op). Do NOT
+        // remove 'screensaver' from interceptedPages, or the stock
+        // screensaver will silently return and cover this screen. Burn-in
+        // here is handled by CSS motion instead.
         AppStateService.stopScreensaverTimeout();
 
         // Shared minute-resolution ticker. Do not add another timer.

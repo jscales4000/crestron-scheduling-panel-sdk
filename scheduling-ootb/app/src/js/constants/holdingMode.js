@@ -28,6 +28,13 @@
             copy: {
                 en: {
                     greeting: 'Welcome to the new District Office',
+                    // Each phrase must fit within two rendered lines. The
+                    // .holding__message slot in src/scss/partials/holding.scss
+                    // is a fixed height: 9vh (two lines at 3vh / 1.3
+                    // line-height) - a third line overflows the
+                    // absolutely-positioned slot and collides with the
+                    // footer (room name / clock / date). Raise that height
+                    // first if longer copy is ever needed.
                     phrases: [
                         'Pardon our dust while we move in.',
                         'Scheduling coming soon.'
