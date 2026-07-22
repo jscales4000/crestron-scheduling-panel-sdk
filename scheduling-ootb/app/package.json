@@ -1,0 +1,39 @@
+{
+  "name": "helium",
+  "version": "1.0.0",
+  "description": "Helium Application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "bower install",
+    "serverrep": "node server_repository"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bower": "^1.8.13",
+    "dotenv": "^14.3.2",
+    "express": "^4.17.2",
+    "jshint": "^2.13.4",
+    "pem": "^1.14.6",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "grunt": "~1.4.1",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-compress": "^2.0.0",
+    "grunt-contrib-concat": "^2.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^4.0.0",
+    "grunt-contrib-htmlmin": "^3.1.0",
+    "grunt-contrib-jshint": "^3.1.1",
+    "grunt-contrib-pug": "^3.0.0",
+    "grunt-contrib-uglify": "^5.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-if": "^0.1.5",
+    "grunt-sass": "^3.1.0",
+    "load-grunt-tasks": "^5.1.0",
+    "sass": "^1.71.1",
+    "xml2js": "^0.4.23"
+  }
+}
