@@ -17,6 +17,13 @@
 #
 #  2. HEADLESS CHROME NEEDS --user-data-dir. Without it the screenshot write
 #     fails with "Access is denied" and Chrome still exits 0.
+#
+#  3. THE PROFILE MUST BE FRESH EACH RUN. ThemeService does
+#     `localStorage.getItem('theme') || 'dark-theme'`, and LayoutService does the
+#     same for layout - so a REUSED Chrome profile carries the theme/layout from
+#     a previous capture into the next one. That silently produced a screenshot
+#     rendered in impair-theme long after the config under test had moved on.
+#     A per-run profile makes each capture hermetic.
 
 set -euo pipefail
 
@@ -46,8 +53,13 @@ curl -s "http://127.0.0.1:$PORT$URLPATH" | grep -q '<title>Helium</title>' \
   || { echo "FAIL: served page is not the Helium app - wrong server on $PORT?"; exit 1; }
 
 echo "==> capturing $SHOTDIR/$NAME.png"
+# Fresh profile per run - see trap 3 above. Never reuse one.
+PROFILE="$SHOTDIR/profile-$NAME-$$"
+rm -rf "$PROFILE"
+trap 'kill $SERVER_PID 2>/dev/null || true; rm -rf "$PROFILE"' EXIT
+
 "$CHROME" --headless=new --disable-gpu --no-sandbox \
-  --user-data-dir="$SHOTDIR/profile" --hide-scrollbars \
+  --user-data-dir="$PROFILE" --hide-scrollbars \
   --virtual-time-budget=15000 --window-size=1280,800 \
   --screenshot="$SHOTDIR/$NAME.png" "http://127.0.0.1:$PORT$URLPATH" 2>&1 | tail -1
 
