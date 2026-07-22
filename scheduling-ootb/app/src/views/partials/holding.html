@@ -1,3 +1,23 @@
 <div class="holding" data-ng-controller="HoldingCtrl">
-    <div class="holding__greeting color__theme-color-5">{{ greeting }}</div>
+    <div class="holding__drift">
+
+        <div class="holding__logo">
+            <img class="holding__logo-img" data-ng-src="{{ logoSrc }}" alt="Maricopa Community Colleges" />
+        </div>
+
+        <div class="holding__greeting color__theme-color-5">{{ greeting }}</div>
+
+        <div class="holding__message" data-ng-class="{ 'is-static': isImpair }">
+            <div class="holding__phrase color__theme-color-4"
+                 data-ng-repeat="phrase in phrases track by $index"
+                 data-ng-class="{ 'is-active': $index === phraseIndex, 'is-static': isImpair }">{{ phrase }}</div>
+        </div>
+
+        <div class="holding__footer">
+            <div class="holding__room color__theme-color-4">{{ roomName }}</div>
+            <div class="holding__clock color__theme-color-5">{{ now | date:timeFormat }}</div>
+            <div class="holding__date color__theme-color-4">{{ now | date:dateFormat }}</div>
+        </div>
+
+    </div>
 </div>
