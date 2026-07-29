@@ -10,7 +10,7 @@ app on Crestron scheduling touchscreens (TSS-770/1070 class). Greenfield as of
 - Namespace: `default`
 
 ## Hardware & deployment
-- Panel: **TSS-1070** at `192.168.2.155` (web config admin/password), bench network.
+- Panel: **TSS-1070** on a private bench network (host + credentials tracked out-of-band).
 - Deployment: "Crestron general web application" kiosk mode — host the built `scheduling-panel/dist/` and point the panel's web-app URL at it. The `npm run deploy` (.ch5z) script is the TSW route and does not apply here.
 - Calendar source: Google Calendar via a backend service (see FRED doc "Google Calendar API — Panel Backend Reference").
 
