@@ -9,7 +9,7 @@ Session summary (single session, FRED project `cb891811-0872-4723-a87e-3e7af4530
 - Audited the FRED knowledge base: strong coverage of TSS/TSW-x70 docs (8205/8550/8745/8989) and CH5 development; identified gaps (calendar APIs, Fusion API reference).
 - Extracted a stock-scheduling-app feature baseline from KB docs → FRED doc `84f3b443` (parity checklist: booking rules, check-in/no-show windows, privacy levels, light bar, provisioning, calendar providers).
 - Confirmed from Crestron docs 8745: custom panels run via **"Crestron general web application"** kiosk mode; URL must be HTTPS.
-- Probed the bench TSS-1070 ([REDACTED-IP]) over its REST API: firmware [REDACTED], app mode OOTB, `CrestronGeneralWeb` supported. Switch-over steps documented in FRED doc `be457823`. Panel mode NOT yet switched (hosting/cert pending).
+- Probed the bench TSS-1070 over its REST API: app mode OOTB, `CrestronGeneralWeb` supported. Switch-over steps documented internally. Panel mode NOT yet switched (hosting/cert pending).
 
 ### Built
 - **`scheduling-panel/`** — Svelte 5 + Vite 6 CH5 app (from FRED ch5-svelte-v2 template; fixed unsubstituted `__ROOM_NAME__` token):
@@ -25,10 +25,10 @@ Session summary (single session, FRED project `cb891811-0872-4723-a87e-3e7af4530
 ### Verified
 - Panel: svelte-check 0 errors; Vite build clean; template validator passes; FRED guardrails pass.
 - Backend: tsc clean; end-to-end curl smoke in memory mode — busy-rejection, check-in, extend (+15 min exact), end-early, walk-up reserve, static hosting all correct.
-- Live demo left running: http://localhost:8080 / http://[REDACTED-IP]:8080 (memory provider).
+- Live demo left running on `http://localhost:8080` (memory provider).
 
 ### Decisions of record
-- Hardware: TSS-1070 @ [REDACTED-IP]; deployment via kiosk web-app mode.
+- Hardware: TSS-1070 on the bench network; deployment via kiosk web-app mode.
 - Scope: strictly demo for now — memory provider; Google Calendar optional later (free, no billing).
 - Next: self-signed cert + panel cert-store install to put the demo on real glass; light-bar via panel REST; parity features (check-in enforcement, auto-release, themes).
 

@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "archive": "npm run build && ch5-cli archive -p scheduling-panel -d dist -o output",
-    "deploy": "npm run archive && ch5-cli deploy -H [REDACTED-IP] -t touchscreen -u ${PANEL_USER} -i output/scheduling-panel.ch5z -p",
+    "deploy": "npm run archive && ch5-cli deploy -H ${PANEL_HOST:-crestron-processor.local} -t touchscreen -u ${PANEL_USER:-admin} -i output/scheduling-panel.ch5z -p",
     "deploy:build": "npm run build && npm run archive && npm run deploy",
     "clean": "rimraf dist output",
     "verify-signals": "rg -n \"SchedulingPanel\\.\" src --glob \"*.ts\" --glob \"*.svelte\"",
